@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sit UK Cit(izen) test</title>
+<style>
+  :root{
+    --bg:#0f0f12; --card:#17181c; --ink:#e8e8ea; --ink-dim:#b7b8c2;
+    --accent:#c4e90c; --accent-ink:#10120a; --muted:#2a2d36; --focus:#8ec5ff;
+  }
+  html,body{height:100%}
+  body{margin:0; font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink);
+    background:radial-gradient(1200px 800px at 30% -10%, #20222b, #0b0c10 60%), var(--bg);
+    display:grid; place-items:start center; padding:2rem;}
+  .wrap{width:min(920px,100%); margin-inline:auto}
+  .card{background:var(--card); border:1px solid #22242b; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.28); overflow:hidden}
+  .head{padding:1rem 1.25rem; border-bottom:1px solid #21232a; display:flex; gap:.75rem; align-items:center; flex-wrap:wrap}
+  .title{margin:0; font-size:1.125rem}
+  .progress{margin-left:auto; font-size:.9rem; color:var(--ink-dim)}
+  .controls{display:flex; gap:.5rem; flex-wrap:wrap}
+  .body{padding:1.25rem}
+  .q{font-size:1.15rem; margin:0 0 .75rem}
+  .meta{display:flex; gap:.5rem; flex-wrap:wrap; margin:.25rem 0 .75rem}
+  .tag{font-size:.75rem; padding:.15rem .5rem; border-radius:999px; border:1px solid #2a2e37; color:var(--ink-dim)}
+  .opts{display:grid; gap:.5rem; margin-top:.5rem}
+  .opt{display:flex; gap:.75rem; align-items:start; padding:.75rem .9rem; background:#121318; border:1px solid #20222a; border-radius:10px; cursor:pointer; transition:.12s ease}
+  .opt:hover{border-color:#2b2e37}
+  .opt input{margin-top:.15rem; accent-color:var(--accent)}
+  .opt.is-correct{border-color:color-mix(in oklab, var(--accent), white 20%); background:#141a0d}
+  .opt.is-wrong{border-color:#51333a; background:#1a1115}
+  .explain{margin-top:1rem; padding:.9rem 1rem; background:#101319; border:1px solid #212636; border-radius:10px; color:var(--ink-dim)}
+  .actions{display:flex; gap:.75rem; margin-top:1rem; flex-wrap:wrap}
+  .btn{appearance:none; border:1px solid #2b2e37; background:#111217; color:var(--ink); padding:.7rem 1rem; border-radius:10px; cursor:pointer; font-weight:600; transition:.14s}
+  .btn:disabled{opacity:.6; cursor:not-allowed}
+  .btn--primary{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+  .btn--ghost{background:transparent}
+  .btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  .foot{padding:1rem 1.25rem; border-top:1px solid #21232a; color:var(--ink-dim); font-size:.9rem}
+  .meter{height:10px; background:#12131a; border:1px solid #252837; border-radius:999px; overflow:hidden}
+  .meter>div{height:100%; background:var(--accent); width:0}
+  .review{display:grid; gap:1rem; margin-top:1rem}
+  .review__item{border:1px solid #23262f; border-radius:10px; padding:1rem; background:#111319}
+  .sr{position:absolute; clip:rect(0 0 0 0); clip-path:inset(50%); width:1px; height:1px; overflow:hidden; white-space:nowrap}
+</style>
+</head>
+<body>
+<main class="wrap card" role="main" aria-labelledby="app-title">
+  <header class="head">
+    <h1 id="app-title" class="title">Life in the UK — Quiz</h1>
+    <div class="controls">
+      <button class="btn btn--ghost" id="newQuizBtn" title="Start a new quiz">New quiz</button>
+      <button class="btn btn--ghost" id="shuffleBtn" title="New quiz (reshuffle)">New quiz & Shuffle</button>
+    </div>
+    <div class="progress" id="progress">Loading…</div>
+  </header>
+
+  <section class="body" id="stage" aria-live="polite"></section>
+
+  <footer class="foot">
+    Tip: questions come from <code>questions.json</code>. Add as many as you want. Use URL params to customise (e.g. <code>?n=8&easy=2&medium=4&hard=2&category=history,culture</code>).
+  </footer>
+</main>
+
+<script>
+/* ---------------------------
+   Config (tweak as you like)
+   --------------------------- */
+const DEFAULT_N = 8;
+const DEFAULT_MIX = { easy: 3, medium: 3, hard: 2 }; // must sum to n
+const QUESTIONS_URL = "./questions.json";             // relative path
+
+/* ---------------------------
+   Utilities
+   --------------------------- */
+const $stage = document.getElementById('stage');
+const $progress = document.getElementById('progress');
+const $newQuiz = document.getElementById('newQuizBtn');
+const $shuffle = document.getElementById('shuffleBtn');
+
+const qs = new URLSearchParams(location.search);
+const pickInt = (key, fallback) => {
+  const v = Number(qs.get(key));
+  return Number.isFinite(v) && v > 0 ? v : fallback;
+};
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = (Math.random() * (i + 1)) | 0;
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function sampleWithoutReplacement(arr, k) {
+  if (k <= 0) return [];
+  const copy = arr.slice();
+  shuffle(copy);
+  return copy.slice(0, Math.min(k, copy.length));
+}
+
+function groupBy(arr, keyFn) {
+  return arr.reduce((acc, x) => {
+    const k = keyFn(x);
+    (acc[k] ||= []).push(x);
+    return acc;
+  }, {});
+}
+
+/* ---------------------------
+   Stratified sampler
+   --------------------------- */
+function buildMix(totalN, mix) {
+  // Ensure the mix adds to totalN; if not provided, scale DEFAULT_MIX
+  const keys = ["easy","medium","hard"];
+  if (!mix) mix = { ...DEFAULT_MIX };
+  let sum = keys.reduce((s,k)=>s+(mix[k]|0),0);
+  if (sum !== totalN) {
+    // scale proportionally then fix rounding
+    const ratios = keys.map(k => (mix[k]||0) / (sum||1));
+    let alloc = {};
+    let used = 0;
+    keys.forEach((k,i)=>{
+      alloc[k] = Math.max(0, Math.floor(ratios[i] * totalN));
+      used += alloc[k];
+    });
+    // distribute remaining
+    let rem = totalN - used;
+    let idx = 0;
+    while (rem-- > 0) alloc[keys[idx++ % keys.length]]++;
+    mix = alloc;
+  }
+  return mix;
+}
+
+function stratifiedPick(all, n, mix, allowedCategories) {
+  const byDiff = groupBy(all.filter(q => !allowedCategories || allowedCategories.has(q.category)), q => q.difficulty);
+  const target = buildMix(n, mix);
+  let chosen = [];
+  // 1) Try to satisfy each difficulty target
+  for (const [diff, need] of Object.entries(target)) {
+    const pool = byDiff[diff] || [];
+    const take = Math.min(need, pool.length);
+    chosen.push(...sampleWithoutReplacement(pool, take));
+    target[diff] -= take;
+  }
+  // 2) If we still need more (insufficient in a bucket), top up from any remaining
+  const remaining = all.filter(q => (!allowedCategories || allowedCategories.has(q.category)) && !chosen.includes(q));
+  const needTotal = n - chosen.length;
+  if (needTotal > 0) {
+    chosen.push(...sampleWithoutReplacement(remaining, needTotal));
+  }
+  // 3) Shuffle final set
+  return shuffle(chosen);
+}
+
+/* ---------------------------
+   Quiz runtime
+   --------------------------- */
+const state = {
+  bank: [],   // all questions (loaded)
+  set: [],    // chosen questions for this run
+  i: 0,
+  correct: 0,
+  picks: new Map(), // q.id -> index
+};
+
+async function loadBank() {
+  const res = await fetch(QUESTIONS_URL, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to fetch ${QUESTIONS_URL}`);
+  const data = await res.json();
+  // Basic validation
+  state.bank = (Array.isArray(data) ? data : data.questions || []).filter(q =>
+    q && typeof q.id === 'string' && typeof q.q === 'string' && Array.isArray(q.options) && Number.isInteger(q.answer)
+  );
+}
+
+function startNewQuiz({ shuffleAll=false } = {}) {
+  if (!state.bank.length) {
+    $stage.innerHTML = `<p>Question bank is empty.</p>`;
+    return;
+  }
+  if (shuffleAll) shuffle(state.bank);
+
+  const n = pickInt('n', DEFAULT_N);
+  const mix = {
+    easy: pickInt('easy', DEFAULT_MIX.easy),
+    medium: pickInt('medium', DEFAULT_MIX.medium),
+    hard: pickInt('hard', DEFAULT_MIX.hard),
+  };
+  const catsParam = qs.get('category');
+  const cats = catsParam ? new Set(catsParam.split(',').map(s=>s.trim().toLowerCase())) : null;
+
+  state.set = stratifiedPick(state.bank, n, mix, cats);
+  state.i = 0;
+  state.correct = 0;
+  state.picks.clear();
+  renderQuestion();
+}
+
+function setProgress(){
+  $progress.textContent = `Question ${state.i + 1} / ${state.set.length}`;
+}
+
+function renderQuestion(){
+  const q = state.set[state.i];
+  setProgress();
+
+  const opts = q.options.map((opt, idx) => `
+    <label class="opt" data-index="${idx}">
+      <input type="radio" name="answer" value="${idx}" />
+      <span>${opt}</span>
+    </label>
+  `).join('');
+
+  $stage.innerHTML = `
+    <form id="qform" novalidate aria-describedby="help" aria-labelledby="qtext">
+      <p id="qtext" class="q"><span class="tag">Q${state.i+1}</span> ${q.q}</p>
+      <div class="meta">
+        <span class="tag">Difficulty: ${q.difficulty}</span>
+        <span class="tag">Category: ${q.category}</span>
+      </div>
+      <div class="opts" role="radiogroup">
+        ${opts}
+      </div>
+      <p id="help" class="sr">Select one option, then press Submit.</p>
+      <div class="actions">
+        <button class="btn btn--primary" id="submitBtn" disabled>Submit answer</button>
+        <button class="btn btn--ghost" id="skipBtn" type="button">Skip</button>
+      </div>
+    </form>
+  `;
+
+  const form = document.getElementById('qform');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('change', (e) => {
+    if (e.target.name === 'answer') submitBtn.disabled = false;
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const chosen = Number(data.get('answer'));
+    handleSubmit(q, chosen);
+  });
+
+  document.getElementById('skipBtn').addEventListener('click', nextQuestion);
+}
+
+function handleSubmit(q, chosen){
+  const form = document.getElementById('qform');
+  const radios = [...form.querySelectorAll('input[type="radio"]')];
+  radios.forEach(r => r.disabled = true);
+  document.getElementById('submitBtn').disabled = true;
+
+  state.picks.set(q.id, chosen);
+
+  const labels = [...form.querySelectorAll('.opt')];
+  labels.forEach((lab, i) => { if (i === q.answer) lab.classList.add('is-correct'); });
+  if (chosen !== q.answer) labels[chosen]?.classList.add('is-wrong'); else state.correct++;
+
+  const explain = document.createElement('div');
+  explain.className = 'explain';
+  explain.innerHTML = `<strong>${chosen === q.answer ? 'Correct!' : 'Not quite.'}</strong>
+                       <div>${q.explain || '—'}</div>`;
+
+  const actions = document.createElement('div');
+  actions.className = 'actions';
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'btn btn--primary';
+  nextBtn.type = 'button';
+  nextBtn.textContent = state.i + 1 < state.set.length ? 'Next question' : 'See results';
+  nextBtn.addEventListener('click', nextQuestion);
+  actions.appendChild(nextBtn);
+
+  form.appendChild(explain);
+  form.appendChild(actions);
+}
+
+function nextQuestion(){
+  if (state.i + 1 < state.set.length){
+    state.i++;
+    renderQuestion();
+  } else {
+    renderResults();
+  }
+}
+
+function renderResults(){
+  const total = state.set.length;
+  const pct = Math.round((state.correct / total) * 100);
+  const review = state.set.map((q, n) => {
+    const picked = state.picks.get(q.id);
+    const ok = picked === q.answer;
+    return `
+      <div class="review__item">
+        <div style="display:flex; gap:.5rem; align-items:baseline; justify-content:space-between;">
+          <strong>Q${n+1}.</strong>
+          <span class="tag">${ok ? 'Correct' : 'Incorrect'}</span>
+        </div>
+        <p style="margin:.4rem 0 .6rem">${q.q}</p>
+        <div><span class="tag">Your answer</span> ${picked != null ? q.options[picked] : '—'}</div>
+        <div><span class="tag">Correct</span> ${q.options[q.answer]}</div>
+        <div class="meta" style="margin-top:.5rem">
+          <span class="tag">Difficulty: ${q.difficulty}</span>
+          <span class="tag">Category: ${q.category}</span>
+        </div>
+        ${q.explain ? `<details style="margin-top:.5rem"><summary>Explanation</summary><p class="explain" style="margin:.5rem 0 0">${q.explain}</p></details>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  $stage.innerHTML = `
+    <section aria-labelledby="res-title">
+      <h2 id="res-title" class="q">Results</h2>
+      <p><strong>${state.correct}</strong> / <strong>${total}</strong> correct (${pct}%).</p>
+      <div class="meter" aria-hidden="true"><div style="width:${pct}%"></div></div>
+      <div class="actions" style="margin-top:1rem">
+        <button class="btn btn--primary" id="restartBtn">Restart</button>
+        <button class="btn btn--ghost" id="reshuffleBtn">Restart & Shuffle</button>
+      </div>
+      <div class="review">${review}</div>
+    </section>
+  `;
+
+  document.getElementById('restartBtn').addEventListener('click', ()=>startNewQuiz());
+  document.getElementById('reshuffleBtn').addEventListener('click', ()=>startNewQuiz({ shuffleAll:true }));
+  $progress.textContent = 'Finished';
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await loadBank();
+    startNewQuiz();
+    $newQuiz.addEventListener('click', ()=>startNewQuiz());
+    $shuffle.addEventListener('click', ()=>startNewQuiz({ shuffleAll:true }));
+  } catch (e) {
+    console.error(e);
+    $stage.innerHTML = `<p>Could not load questions. Ensure <code>questions.json</code> is present and valid.</p>`;
+  }
+});
+</script>
+</body>
+</html>
