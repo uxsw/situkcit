@@ -1,0 +1,523 @@
+[
+  {
+    "id": "hist-1066",
+    "q": "In which year did the Norman conquest begin with the Battle of Hastings?",
+    "options": ["1215", "1066", "1485", "1666"],
+    "answer": 1,
+    "explain": "William of Normandy defeated King Harold in 1066.",
+    "difficulty": "easy",
+    "category": "history"
+  },
+  {
+    "id": "gov-houses",
+    "q": "What are the two Houses of the UK Parliament?",
+    "options": ["Commons and Lords", "Lords and Monarch", "Assembly and Senate", "Council and Commons"],
+    "answer": 0,
+    "explain": "Parliament comprises the House of Commons and the House of Lords.",
+    "difficulty": "easy",
+    "category": "government"
+  },
+  {
+    "id": "civ-obey-law",
+    "q": "Which is a responsibility of all UK residents?",
+    "options": ["Serve on a jury every year", "Obey the law", "Vote in every election", "Join a political party"],
+    "answer": 1,
+    "explain": "Obeying the law is required; the others are optional.",
+    "difficulty": "easy",
+    "category": "law-rights"
+  },
+  {
+    "id": "geo-uk-nations",
+    "q": "Which of the following is NOT one of the four nations of the UK?",
+    "options": ["England", "Scotland", "Wales", "Republic of Ireland"],
+    "answer": 3,
+    "explain": "The UK is England, Scotland, Wales and Northern Ireland.",
+    "difficulty": "easy",
+    "category": "geography"
+  },
+  {
+    "id": "cult-st-andrew",
+    "q": "St Andrew’s Day is the national day of which UK nation?",
+    "options": ["Wales", "Scotland", "Northern Ireland", "England"],
+    "answer": 1,
+    "explain": "Celebrated on 30 November in Scotland.",
+    "difficulty": "easy",
+    "category": "culture"
+  },
+  {
+    "id": "law-jury-size",
+    "q": "How many jurors usually serve on a criminal jury in England and Wales?",
+    "options": ["6", "10", "12", "15"],
+    "answer": 2,
+    "explain": "Typically 12 jurors.",
+    "difficulty": "easy",
+    "category": "law-rights"
+  },
+
+  {
+    "id": "hist-magna",
+    "q": "What is the Magna Carta best known for?",
+    "options": ["Ending WWI", "Limiting the powers of the monarch", "Establishing the NHS", "Uniting England and Scotland"],
+    "answer": 1,
+    "explain": "Signed in 1215; established the principle that the king is subject to the law.",
+    "difficulty": "medium",
+    "category": "history"
+  },
+  {
+    "id": "gov-vote-age",
+    "q": "What is the minimum age to vote in UK general elections?",
+    "options": ["16", "17", "18", "21"],
+    "answer": 2,
+    "explain": "18 for UK general elections.",
+    "difficulty": "medium",
+    "category": "government"
+  },
+  {
+    "id": "cult-tv-licence",
+    "q": "Which of the following requires a TV licence in the UK?",
+    "options": [
+      "Only watching on a TV set",
+      "Watching or recording live TV on any device",
+      "Streaming on-demand services only",
+      "Listening to radio"
+    ],
+    "answer": 1,
+    "explain": "Live TV (any device) or BBC iPlayer requires a licence.",
+    "difficulty": "medium",
+    "category": "culture"
+  },
+  {
+    "id": "geo-capital-ni",
+    "q": "What is the capital city of Northern Ireland?",
+    "options": ["Derry~Londonderry", "Belfast", "Armagh", "Newry"],
+    "answer": 1,
+    "explain": "Belfast is the capital.",
+    "difficulty": "medium",
+    "category": "geography"
+  },
+  {
+    "id": "law-min-jury-age",
+    "q": "What is the usual age range for jury service eligibility in England and Wales?",
+    "options": ["16–60", "18–70", "21–60", "25–75"],
+    "answer": 1,
+    "explain": "Generally 18–70 (some extensions/changes may apply by jurisdiction).",
+    "difficulty": "medium",
+    "category": "law-rights"
+  },
+  {
+    "id": "gov-pm-appoint",
+    "q": "Who invites the leader of the majority party in the Commons to become Prime Minister?",
+    "options": ["The Speaker", "The Monarch", "The Lord Chancellor", "The Home Secretary"],
+    "answer": 1,
+    "explain": "The Monarch appoints the Prime Minister.",
+    "difficulty": "medium",
+    "category": "government"
+  },
+
+  {
+    "id": "hist-glorious",
+    "q": "In which year did the ‘Glorious Revolution’ take place?",
+    "options": ["1649", "1688", "1707", "1832"],
+    "answer": 1,
+    "explain": "1688: William of Orange took the throne; a key step toward constitutional monarchy.",
+    "difficulty": "hard",
+    "category": "history"
+  },
+  {
+    "id": "cult-poet-laureate",
+    "q": "The title ‘Poet Laureate’ is associated with which of the following?",
+    "options": ["An elected role in Parliament", "A royal appointment for poetry", "A BBC award", "A university professorship"],
+    "answer": 1,
+    "explain": "It’s a royal appointment for a distinguished poet.",
+    "difficulty": "hard",
+    "category": "culture"
+  },
+  {
+    "id": "gov-mp-number",
+    "q": "Approximately how many MPs sit in the House of Commons?",
+    "options": ["420", "500", "543", "650"],
+    "answer": 3,
+    "explain": "There are currently 650 seats (this can change with boundary reviews).",
+    "difficulty": "hard",
+    "category": "government"
+  },
+  {
+    "id": "geo-longest-river",
+    "q": "What is the longest river in the UK?",
+    "options": ["River Severn", "River Thames", "River Trent", "River Tay"],
+    "answer": 0,
+    "explain": "The Severn is the longest; the Thames is the longest entirely in England.",
+    "difficulty": "hard",
+    "category": "geography"
+  },
+  {
+    "id": "law-small-claims",
+    "q": "Small claims cases in England & Wales are usually heard in which court?",
+    "options": ["Crown Court", "High Court", "County Court", "Magistrates’ Court"],
+    "answer": 2,
+    "explain": "The small claims track is part of the County Court system.",
+    "difficulty": "hard",
+    "category": "law-rights"
+  },
+  {
+    "id": "hist-agne",
+    "q": "Which English king is associated with the establishment of the Church of England separate from Rome?",
+    "options": ["Henry V", "Henry VII", "Henry VIII", "Edward VI"],
+    "answer": 2,
+    "explain": "Henry VIII broke with Rome in the 16th century.",
+    "difficulty": "hard",
+    "category": "history"
+  },
+  {
+  "id": "hist-roman-britain",
+  "q": "Which people first built towns and roads extensively in Britain?",
+  "options": ["Anglo-Saxons", "Normans", "Romans", "Vikings"],
+  "answer": 2,
+  "explain": "The Romans occupied much of Britain from AD 43 and built roads and towns.",
+  "difficulty": "easy",
+  "category": "history"
+},
+{
+  "id": "hist-boudicca",
+  "q": "Boudicca led a famous revolt against which empire?",
+  "options": ["Byzantine Empire", "Roman Empire", "Frankish Empire", "Ottoman Empire"],
+  "answer": 1,
+  "explain": "Boudicca was a Celtic queen who rebelled against Roman rule in AD 60–61.",
+  "difficulty": "easy",
+  "category": "history"
+},
+{
+  "id": "hist-henry-viii",
+  "q": "Which monarch established the Church of England separate from Rome?",
+  "options": ["Henry V", "Henry VII", "Henry VIII", "Edward VI"],
+  "answer": 2,
+  "explain": "Henry VIII broke with the Roman Catholic Church in the 16th century.",
+  "difficulty": "easy",
+  "category": "history"
+},
+{
+  "id": "hist-gunpowder",
+  "q": "What event is marked by Bonfire Night on 5 November?",
+  "options": ["The Great Fire of London", "The Gunpowder Plot", "The Glorious Revolution", "The end of WWI"],
+  "answer": 1,
+  "explain": "It marks the failure of the 1605 Gunpowder Plot to blow up Parliament.",
+  "difficulty": "easy",
+  "category": "history"
+},
+{
+  "id": "hist-nhs",
+  "q": "In which year was the National Health Service (NHS) founded?",
+  "options": ["1918", "1939", "1945", "1948"],
+  "answer": 3,
+  "explain": "The NHS began in 1948, providing healthcare free at the point of use.",
+  "difficulty": "easy",
+  "category": "history"
+},
+{
+  "id": "gov-pm-role",
+  "q": "Who leads the UK government?",
+  "options": ["The Monarch", "The Lord Chancellor", "The Prime Minister", "The Speaker"],
+  "answer": 2,
+  "explain": "The Prime Minister leads the government and appoints ministers.",
+  "difficulty": "easy",
+  "category": "government"
+},
+{
+  "id": "gov-manifesto",
+  "q": "A political party’s promises for government are usually set out in what?",
+  "options": ["A manifesto", "A white paper", "A budget", "A treaty"],
+  "answer": 0,
+  "explain": "Parties publish manifestos during elections to outline their policies.",
+  "difficulty": "easy",
+  "category": "government"
+},
+{
+  "id": "law-pay-tax",
+  "q": "Which of the following is a legal responsibility for residents?",
+  "options": ["To stand for election", "To pay taxes", "To serve in the armed forces", "To join a union"],
+  "answer": 1,
+  "explain": "Paying taxes and obeying the law are fundamental civic duties.",
+  "difficulty": "easy",
+  "category": "law-rights"
+},
+{
+  "id": "law-emergency",
+  "q": "What number should you dial in the UK to reach the emergency services?",
+  "options": ["112 only", "911", "999 (or 112)", "101"],
+  "answer": 2,
+  "explain": "999 and 112 both connect to emergency services in the UK.",
+  "difficulty": "easy",
+  "category": "law-rights"
+},
+{
+  "id": "geo-capitals",
+  "q": "Which pairing of nation and capital is correct?",
+  "options": ["Wales — Belfast", "England — Edinburgh", "Scotland — Cardiff", "Northern Ireland — Belfast"],
+  "answer": 3,
+  "explain": "Belfast is the capital of Northern Ireland.",
+  "difficulty": "easy",
+  "category": "geography"
+},
+{
+  "id": "geo-ben-nevis",
+  "q": "What is the highest mountain in the UK?",
+  "options": ["Snowdon (Yr Wyddfa)", "Ben Nevis", "Scafell Pike", "Slieve Donard"],
+  "answer": 1,
+  "explain": "Ben Nevis, in Scotland, is the highest.",
+  "difficulty": "easy",
+  "category": "geography"
+},
+{
+  "id": "cult-shakespeare",
+  "q": "William Shakespeare is known for writing which of the following?",
+  "options": ["Symphonies", "Novels", "Plays and sonnets", "Philosophical treatises"],
+  "answer": 2,
+  "explain": "Shakespeare wrote plays and poetry in the late 16th and early 17th centuries.",
+  "difficulty": "easy",
+  "category": "culture"
+},
+{
+  "id": "cult-sports-wimbledon",
+  "q": "Wimbledon is a major tournament in which sport?",
+  "options": ["Cricket", "Rugby", "Tennis", "Athletics"],
+  "answer": 2,
+  "explain": "Wimbledon is the world’s oldest tennis tournament.",
+  "difficulty": "easy",
+  "category": "culture"
+},
+
+{
+  "id": "hist-bill-rights",
+  "q": "The 1689 Bill of Rights limited the powers of the monarch and confirmed which principle?",
+  "options": ["Trial by ordeal", "Parliamentary supremacy", "Divine right of kings", "Universal suffrage"],
+  "answer": 1,
+  "explain": "It established key constitutional principles and strengthened Parliament.",
+  "difficulty": "medium",
+  "category": "history"
+},
+{
+  "id": "hist-act-union-1707",
+  "q": "The Acts of Union 1707 created which political entity?",
+  "options": ["The United Kingdom of Great Britain", "The United Kingdom of Great Britain and Ireland", "The British Empire", "The Commonwealth"],
+  "answer": 0,
+  "explain": "England (including Wales) and Scotland formed Great Britain in 1707.",
+  "difficulty": "medium",
+  "category": "history"
+},
+{
+  "id": "hist-waterloo",
+  "q": "At which battle in 1815 was Napoleon finally defeated by British-led forces?",
+  "options": ["Trafalgar", "Waterloo", "Balaclava", "Somme"],
+  "answer": 1,
+  "explain": "The Duke of Wellington defeated Napoleon at Waterloo in 1815.",
+  "difficulty": "medium",
+  "category": "history"
+},
+{
+  "id": "gov-cabinet",
+  "q": "What is the Cabinet?",
+  "options": ["Senior judges", "Leaders of devolved governments", "Senior ministers chosen by the PM", "The steering committee of the civil service"],
+  "answer": 2,
+  "explain": "The Cabinet comprises senior government ministers selected by the Prime Minister.",
+  "difficulty": "medium",
+  "category": "government"
+},
+{
+  "id": "gov-local-council",
+  "q": "Which services are commonly provided by local councils?",
+  "options": ["Foreign policy", "Defence", "Rubbish collection and local libraries", "Setting interest rates"],
+  "answer": 2,
+  "explain": "Local authorities handle services like waste, planning, and libraries.",
+  "difficulty": "medium",
+  "category": "government"
+},
+{
+  "id": "gov-walpole",
+  "q": "Who is generally regarded as Britain’s first Prime Minister?",
+  "options": ["Benjamin Disraeli", "Robert Peel", "Robert Walpole", "William Pitt the Younger"],
+  "answer": 2,
+  "explain": "Robert Walpole served as First Lord of the Treasury from 1721.",
+  "difficulty": "medium",
+  "category": "government"
+},
+{
+  "id": "law-jury-duty",
+  "q": "What might happen if you are called for jury service?",
+  "options": ["You must always refuse", "It’s a civic duty and you may have to attend", "Only lawyers can serve", "You can choose to do it every year"],
+  "answer": 1,
+  "explain": "Jury service is a civic responsibility for eligible people.",
+  "difficulty": "medium",
+  "category": "law-rights"
+},
+{
+  "id": "law-employment-rights",
+  "q": "Which body can help resolve employment disputes and advise on rights at work?",
+  "options": ["NHS", "Citizens Advice", "DVLA", "Met Office"],
+  "answer": 1,
+  "explain": "Citizens Advice offers free, impartial guidance on many legal and consumer issues.",
+  "difficulty": "medium",
+  "category": "law-rights"
+},
+{
+  "id": "geo-giants-causeway",
+  "q": "The Giant’s Causeway is located in which part of the UK?",
+  "options": ["Scotland", "Wales", "Northern Ireland", "England"],
+  "answer": 2,
+  "explain": "It is a UNESCO World Heritage Site on the north coast of Northern Ireland.",
+  "difficulty": "medium",
+  "category": "geography"
+},
+{
+  "id": "geo-lough-neagh",
+  "q": "Which is the largest lake by area in the UK?",
+  "options": ["Loch Lomond", "Lough Neagh", "Loch Ness", "Rutland Water"],
+  "answer": 1,
+  "explain": "Lough Neagh in Northern Ireland is the largest by surface area.",
+  "difficulty": "medium",
+  "category": "geography"
+},
+{
+  "id": "cult-authors",
+  "q": "Which author wrote “Pride and Prejudice”?",
+  "options": ["Emily Brontë", "Jane Austen", "Mary Shelley", "George Eliot"],
+  "answer": 1,
+  "explain": "Jane Austen published it in 1813.",
+  "difficulty": "medium",
+  "category": "culture"
+},
+{
+  "id": "cult-berners-lee",
+  "q": "Sir Tim Berners-Lee is best known for which achievement?",
+  "options": ["Discovering penicillin", "Inventing the World Wide Web", "Developing the steam engine", "Decoding DNA structure"],
+  "answer": 1,
+  "explain": "He invented the World Wide Web while working at CERN.",
+  "difficulty": "medium",
+  "category": "culture"
+},
+
+{
+  "id": "hist-glorious-rev-year",
+  "q": "In which year did the ‘Glorious Revolution’ occur?",
+  "options": ["1649", "1688", "1707", "1832"],
+  "answer": 1,
+  "explain": "In 1688 William of Orange took the throne, advancing constitutional monarchy.",
+  "difficulty": "hard",
+  "category": "history"
+},
+{
+  "id": "hist-reform-act-1832",
+  "q": "What did the Reform Act of 1832 primarily change?",
+  "options": ["Ended slavery across the empire", "Extended the franchise and reformed constituencies", "Created the NHS", "United England and Scotland"],
+  "answer": 1,
+  "explain": "It widened (though still limited) voting rights and removed ‘rotten boroughs’.",
+  "difficulty": "hard",
+  "category": "history"
+},
+{
+  "id": "gov-rule-of-law",
+  "q": "Which statement best describes the ‘rule of law’ in the UK?",
+  "options": [
+    "The government can overrule courts at will",
+    "Everyone, including the government, is subject to the law",
+    "Only Parliament is above the law",
+    "Judges make laws without Parliament"
+  ],
+  "answer": 1,
+  "explain": "No one is above the law; laws are applied equally.",
+  "difficulty": "hard",
+  "category": "government"
+},
+{
+  "id": "gov-common-law",
+  "q": "What is ‘common law’?",
+  "options": [
+    "Laws made only by the EU",
+    "Law developed by judges through decisions",
+    "International treaties",
+    "Emergency legislation"
+  ],
+  "answer": 1,
+  "explain": "Common law evolves through court judgments as well as statutes passed by Parliament.",
+  "difficulty": "hard",
+  "category": "government"
+},
+{
+  "id": "law-licensing",
+  "q": "Which activities typically require a licence or permission in the UK?",
+  "options": [
+    "Driving a car on public roads",
+    "Voting in local elections",
+    "Buying groceries",
+    "Walking in a public park"
+  ],
+  "answer": 0,
+  "explain": "Driving requires a licence and adherence to road laws.",
+  "difficulty": "hard",
+  "category": "law-rights"
+},
+{
+  "id": "law-courts",
+  "q": "Serious criminal cases in England and Wales are tried in which court?",
+  "options": ["Magistrates’ Court", "County Court", "Crown Court", "Family Court"],
+  "answer": 2,
+  "explain": "Serious offences are heard in the Crown Court before a judge and jury.",
+  "difficulty": "hard",
+  "category": "law-rights"
+},
+{
+  "id": "geo-union-flag",
+  "q": "Which crosses are combined in the Union Flag (Union Jack)?",
+  "options": [
+    "St George, St Andrew, St Patrick",
+    "St David, St George, St Andrew",
+    "St Patrick, St David, St George",
+    "St Andrew, St David, St Michael"
+  ],
+  "answer": 0,
+  "explain": "It combines the crosses of the patron saints of England, Scotland and Ireland (not Wales).",
+  "difficulty": "hard",
+  "category": "geography"
+},
+{
+  "id": "geo-crown-dependencies",
+  "q": "Which of the following are Crown Dependencies and not part of the UK?",
+  "options": [
+    "Isle of Man and Channel Islands",
+    "Isle of Wight and Anglesey",
+    "Shetland and Orkney",
+    "Isles of Scilly and Skye"
+  ],
+  "answer": 0,
+  "explain": "The Isle of Man and the Channel Islands are self-governing Crown Dependencies.",
+  "difficulty": "hard",
+  "category": "geography"
+},
+{
+  "id": "cult-patron-saints",
+  "q": "Match the patron saints to their nations: St George, St Andrew, St David, St Patrick.",
+  "options": [
+    "England, Scotland, Wales, Northern Ireland",
+    "Scotland, England, Wales, Northern Ireland",
+    "England, Wales, Scotland, Northern Ireland",
+    "England, Scotland, Northern Ireland, Wales"
+  ],
+  "answer": 0,
+  "explain": "St George (England), St Andrew (Scotland), St David (Wales), St Patrick (Northern Ireland).",
+  "difficulty": "hard",
+  "category": "culture"
+},
+{
+  "id": "cult-national-flowers",
+  "q": "Which set correctly lists national emblems/flowers?",
+  "options": [
+    "England—rose, Scotland—thistle, Wales—daffodil/leek, NI—shamrock",
+    "England—daffodil, Scotland—shamrock, Wales—rose, NI—thistle",
+    "England—shamrock, Scotland—rose, Wales—thistle, NI—daffodil",
+    "England—thistle, Scotland—rose, Wales—leek, NI—daffodil"
+  ],
+  "answer": 0,
+  "explain": "These are the commonly recognised national emblems.",
+  "difficulty": "hard",
+  "category": "culture"
+}
+]
